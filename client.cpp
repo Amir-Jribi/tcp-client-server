@@ -9,6 +9,7 @@
 #include <netinet/if_ether.h>
 using namespace std;
 //nping --tcp --dest-ip 192.168.1.1 --dest-port 80
+char buffer[1000000];
 int main(){
 	 
 	// int socket(int domain, int type, int protocol);
@@ -30,48 +31,32 @@ int main(){
         perror("failing in connection");
         return -1;
     }
-    char buf[1024]={};
-    int from_server=read(client_fd,buf,sizeof(buf));
-    if (from_server>0){
-        cout<<"data is reached the client"<<endl;
-    }
-    else {
-        perror("data was not reached to the client");
-        return -1;
-    }
-
-    char buffer[1024]={};
-    for(int j=0;j<1024;j++){
-        buffer[j]='a';
-    }
+    memset(buffer,'a',sizeof(buffer));
     int send_bytes=0;
-    for(int i=0;i<1000;i++){
-        int n=write(client_fd,buffer,strlen(buffer));
-        if (n<0){
-            perror("error in sending a message");
-            return -1;
-        }
-        else {
-            send_bytes+=n;
-            continue;
-        }
-    }
-    cout<<"number of bytes that was sent from the client is "<<send_bytes<<endl;
-
-    
-
-    /*
-    const char* buffer="hello world";
-    int n=send(client_fd,buffer,strlen(buffer),0);
+    int n=write(client_fd,buffer,sizeof(buffer));
     if (n<0){
         perror("error in sending a message");
         return -1;
     }
     else {
-        cout<<"number of bytes that was sent from the client is "<<n<<endl;
+        send_bytes+=n;
     }
-    */
+    cout<<"number of bytes that was sent from the client is "<<send_bytes<<endl;
+
+    shutdown(client_fd,SHUT_WR);
+    // read any pending data.
+    int received_data=0;
+    char buf[1024]={};
+    for(;;){
+        int n=read(client_fd,buf,sizeof(buf));
+        if (n>0){
+            received_data+=n;
+        }
+        else {
+            break;
+        }
+    }
+    cout<<"the client have received "<<received_data<<endl;
 	close(client_fd);
 	return 0;
 }
-
