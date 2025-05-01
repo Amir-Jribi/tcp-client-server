@@ -28,7 +28,8 @@ To clean the output files
 make clean
 
 
-## 🧪 Example Behavior
+
+## 🧪 **Example Behavior**
 
 Single-client server: Accepts one client, exchanges messages, then closes the connection.
 
@@ -36,14 +37,14 @@ Threaded server: Accepts multiple clients, each handled in a separate thread.
 
 Async server: Manages all clients in a single thread using non-blocking poll().
 
-## 📌 Notes
+## 📌 **Notes**
 The server listens on port 6969 by default.
 
 Ensure that the server is started before any client attempts to connect.
 
 You may change the server port number in the code if required.
 
-## 📝 Future Improvements
+## 📝 **Future Improvements**
 Add benchmarking tools to compare the performance of threaded vs asynchronous server.
 
 
