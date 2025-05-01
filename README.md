@@ -14,22 +14,7 @@ This project demonstrates a TCP-based client-server communication system impleme
 - Threaded and asynchronous models to handle multiple clients
 - Clean and modular C++ code
 
-
-## 🧱 Build Instructions
-
-To compile all binaries:
-
-```bash
-make all
-
-To clean the output files
-
-```bash
-make clean
-
-
-
-## 🧪 **Example Behavior**
+## 🧪 Example Behavior
 
 Single-client server: Accepts one client, exchanges messages, then closes the connection.
 
@@ -37,14 +22,27 @@ Threaded server: Accepts multiple clients, each handled in a separate thread.
 
 Async server: Manages all clients in a single thread using non-blocking poll().
 
-## 📌 **Notes**
+## 📌 Notes
 The server listens on port 6969 by default.
 
 Ensure that the server is started before any client attempts to connect.
 
 You may change the server port number in the code if required.
 
-## 📝 **Future Improvements**
+
+## 🧱 Build Instructions
+
+To compile all binaries:
+```bash
+make all
+```
+To clean the output files
+```bash
+make clean
+```
+
+
+## 📝 Future Improvements
 Add benchmarking tools to compare the performance of threaded vs asynchronous server.
 
 
